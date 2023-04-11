@@ -57,11 +57,5 @@ public class CompanyController{
         Company companyAtivo = new Company();
         return ResponseEntity.noContent().build();
     }
-    //Retorno200
-    @GetMapping("/{id}")
-    public ResponseEntity<?> detalhar(@PathVariable Long id){
-        //var company = new Company(dados).repository.getReferenceById(id);
-        var company  = repository.getReferenceById(id);//findById(id);
-        return ResponseEntity.ok(company);
-    }
+
 }

@@ -13,7 +13,7 @@ public record ProductDTO(
         @Column(name = "name",unique = true)
         String name,
         @NotNull(message = "Price notnull")
-        @Column(name = "name",unique = true)
+        @Column(name = "price")
         Float price,
         @NotBlank(message = "Description notnull")
         String description,

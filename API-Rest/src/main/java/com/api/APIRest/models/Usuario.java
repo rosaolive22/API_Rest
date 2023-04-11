@@ -1,17 +1,15 @@
 package com.api.APIRest.models;
 
-//import com.api.APIRest.dtos.UserDTO;
+import com.api.APIRest.enuns.EnunUsuarios;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+@Setter
 @Entity
 @Table(name="tb_user")
 @Getter
@@ -21,23 +19,23 @@ import java.util.List;
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    //@Column(name = "id")
     private Long id;
     private String login;
-    private String senha;
+    private String password;
+    private EnunUsuarios roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public String getUsername() {
-        return login;
+        return List.of(new SimpleGrantedAuthority("ROLE_" + roles.toString()));
     }
     @Override
     public String getPassword() {
-        return senha;
+        return password;
+    }
+    @Override
+    public String getUsername() {
+        return login;
     }
 
     @Override

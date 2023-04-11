@@ -1,5 +1,7 @@
 package com.api.APIRest.controllers;
 
+import com.api.APIRest.dtos.DetalhesOdDTO;
+import com.api.APIRest.dtos.DetalhesPdDTO;
 import com.api.APIRest.dtos.OrderDTO;
 import com.api.APIRest.models.Order;
 import com.api.APIRest.repositorys.OrderRepository;
@@ -60,8 +62,8 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> detalhar(@PathVariable Long id){
+    public ResponseEntity detalhar(@PathVariable Long id){
         var order  = repository.getReferenceById(id);
-        return ResponseEntity.ok(order);
+        return ResponseEntity.ok(new DetalhesOdDTO(order));
     }
 }

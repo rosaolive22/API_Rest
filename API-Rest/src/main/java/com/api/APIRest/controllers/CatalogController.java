@@ -54,9 +54,5 @@ public class CatalogController {
         Catalog catalogAtivo = new Catalog();
         return ResponseEntity.ok().body(catalogAtivo);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<?> detalhar(@PathVariable Long id){
-        var catalog  = repository.getReferenceById(id);
-        return ResponseEntity.ok(catalog);
-    }
+
 }
