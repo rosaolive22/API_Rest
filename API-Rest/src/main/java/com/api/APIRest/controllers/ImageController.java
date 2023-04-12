@@ -4,6 +4,7 @@ import com.api.APIRest.dtos.ImageDTO;
 import com.api.APIRest.models.Image;
 import com.api.APIRest.repositorys.ImageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("image")
+@SecurityRequirement(name = "bearer-key")
 public class ImageController {
     @Autowired
     private ImageRepository repository;

@@ -6,6 +6,7 @@ import com.api.APIRest.dtos.OrderDTO;
 import com.api.APIRest.models.Order;
 import com.api.APIRest.repositorys.OrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("order")
+@SecurityRequirement(name = "bearer-key")
 public class OrderController {
     @Autowired
     private OrderRepository repository;

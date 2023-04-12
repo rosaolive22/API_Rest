@@ -13,30 +13,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
-    @Autowired
-    ImageRepository imageRepository;
-    @Autowired
-    CatalogRepository catalogRepository;
-   /* public ResponseEntity<?> cadastrar(@RequestBody ProductDTO dados){
-        List<Image>images = imageRepository.findByIdIn(dados.imgsIds());
-        List<Catalog>catalogs = catalogRepository.findByIdIn(dados.catalogIds());
-        Product product = new Product(dados,images,catalogs);
+
+   public ResponseEntity<?> cadastrar(@RequestBody ProductDTO dados){
+        Product product = new Product(dados);
         productRepository.save(product);
         return ResponseEntity.ok(product);
-    }*/
+    }
    /* public ResponseEntity<?> updadte(@RequestBody ProductDTO dados){
         Product product = productRepository.findByIdIn(dados).orElse(null);
-        List<Image> imgs = imageRepository.findByIdIn(dados.imgsIds());
-        List<Catalog> catalogs = catalogRepository.findByIdIn(dados.catalogIds());
-        assert product != null;
-        product.atualizar(dados,imgs, catalogs);
+               assert product != null;
+        product.atualizar(dados);
         productRepository.save(product);
     }*/
 

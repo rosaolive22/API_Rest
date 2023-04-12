@@ -2,10 +2,13 @@ package com.api.APIRest.models;
 
 import com.api.APIRest.enuns.EnunUsuarios;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,18 +24,22 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Column(name = "id")
     private Long id;
-    private String login;
+    private String login;//email
     private String password;
     private EnunUsuarios roles;
+    private String name;
+    private LocalDate date_register;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + roles.toString()));
     }
+
     @Override
     public String getPassword() {
         return password;
     }
+
     @Override
     public String getUsername() {
         return login;
@@ -57,18 +64,5 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-  /* @NotBlank
-    private String name;
-    @Email
-    @Column(name="e_mail",unique = true)
-    private String e_mail;
-    @Column(name="password",unique = true)
-    private String password;
-    private LocalDate date_register;
-    public Usuario(UserDTO dados) {
-        this.name = dados.name();
-        this.e_mail = dados.e_mail();
-        this.password = dados.password();
-        this.date_register = dados.date_register();*/
-    }
+}
 

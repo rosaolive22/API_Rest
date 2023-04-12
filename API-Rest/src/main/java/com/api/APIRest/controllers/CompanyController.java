@@ -4,6 +4,7 @@ import com.api.APIRest.dtos.CompanyDTO;
 import com.api.APIRest.models.Company;
 import com.api.APIRest.repositorys.CompanyRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("company")
+@SecurityRequirement(name = "bearer-key")
 public class CompanyController{
     @Autowired
     private CompanyRepository repository;

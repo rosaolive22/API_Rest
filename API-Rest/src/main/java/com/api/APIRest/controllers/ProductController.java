@@ -4,7 +4,9 @@ import com.api.APIRest.dtos.DetalhesPdDTO;
 import com.api.APIRest.dtos.ProductDTO;
 import com.api.APIRest.models.Product;
 import com.api.APIRest.repositorys.ProductRepository;
+import com.api.APIRest.services.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("product")
+@SecurityRequirement(name = "bearer-key")
 public class ProductController {
     @Autowired
     private ProductRepository productRepository;
-    /*@Autowired
-    ProductService productService;*/
+    @Autowired
+    ProductService productService;
     @PostMapping
-
+    @Transactional //12/04
     public ResponseEntity<?> cadastrar(@RequestBody @Valid ProductDTO dados, UriComponentsBuilder uriBuilder) {
-        var product = new Product(dados);
+           return productService.cadastrar(dados);
+       /*var product = new Product(dados);
         productRepository.save(product);
         var uri = uriBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri();
-        return ResponseEntity.created(uri).body(product);
+        return ResponseEntity.created(uri).body(product);*/
     }
     @GetMapping
     public ResponseEntity<?> listar(@PageableDefault(size=10, sort={"name"}) Pageable paginacao){

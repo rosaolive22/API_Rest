@@ -4,6 +4,7 @@ import com.api.APIRest.dtos.CatalogDTO;
 import com.api.APIRest.models.Catalog;
 import com.api.APIRest.repositorys.CatalogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("catalog")
+@SecurityRequirement(name = "bearer-key")//"bearer-key" é a mesma do springdoc
 public class CatalogController {
     @Autowired
     private CatalogRepository repository;

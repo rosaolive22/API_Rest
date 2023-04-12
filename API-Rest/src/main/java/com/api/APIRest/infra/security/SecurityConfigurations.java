@@ -32,6 +32,8 @@ public class SecurityConfigurations {
                 .and().authorizeHttpRequests()
 
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()//se vier requizição libere pq é pública
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+
                 //Acrescentar todos os usuários depois alterar, somento adm pode acrescentar usuários novos
                 .requestMatchers(HttpMethod.POST,"/login/cadastrar").permitAll()//.hasrole(ADMINISTRADOR)
 
