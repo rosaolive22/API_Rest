@@ -36,7 +36,7 @@ public class ProductController {
         return ResponseEntity.created(uri).body(product);*/
     }
     @GetMapping
-    public ResponseEntity<?> listar(@PageableDefault(size=10, sort={"name"}) Pageable paginacao){
+    public ResponseEntity<?> listar(@PageableDefault(size=10) Pageable paginacao){
         var page = productRepository.findAll(paginacao);
         if (page.isEmpty()){
             return ResponseEntity.badRequest().body("Lista vazia.");
