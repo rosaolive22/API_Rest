@@ -35,7 +35,7 @@ public class SecurityConfigurations {
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
 
                 //Acrescentar todos os usuários depois alterar, somento adm pode acrescentar usuários novos
-                .requestMatchers(HttpMethod.POST,"/login/cadastrar").permitAll()//.hasrole(ADMINISTRADOR)
+                .requestMatchers(HttpMethod.POST,"/login/cadastrar").hasRole("ADMINISTRADOR")//.permitAll()//
 
                 .requestMatchers(HttpMethod.GET, "/product/**").hasAnyRole("ADMINISTRADOR","COLABORADOR")
                 .requestMatchers(HttpMethod.GET, "/catalog/**").hasRole("ADMINISTRADOR")
