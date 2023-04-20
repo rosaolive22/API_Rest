@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -42,8 +43,12 @@ public class ProductController {
         }
         return ResponseEntity.ok(page);
     }
-    /*public Page<Product> listar(@PageableDefault(size=10, sort={"name"}) Pageable paginacao){
-        return productRepository.findAll(paginacao);
+    //Dividindo o Controller com Service
+   /* @PutMapping(value = "/{id}")
+    @Transactional
+    public ResponseEntity<?> atualizar(@RequestBody @Valid ProductDTO dados, @PathVariable Long id){
+        Product productAtualizado = productService.atualizar(dados);
+        return ResponseEntity.ok().body(productAtualizado);
     }*/
     @PutMapping(value = "/{id}")
     @Transactional
