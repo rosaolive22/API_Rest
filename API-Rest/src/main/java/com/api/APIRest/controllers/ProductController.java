@@ -6,6 +6,7 @@ import com.api.APIRest.models.Product;
 import com.api.APIRest.repositorys.ProductRepository;
 import com.api.APIRest.services.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
     @PostMapping
+    @Operation(summary = "Cadastrar new product.")
     @Transactional //12/04
     public ResponseEntity<?> cadastrar(@RequestBody @Valid ProductDTO dados, UriComponentsBuilder uriBuilder) {
            return productService.cadastrar(dados);
@@ -36,6 +38,7 @@ public class ProductController {
         return ResponseEntity.created(uri).body(product);*/
     }
     @GetMapping
+    @Operation(summary = "Listar products cadastrados.")
     public ResponseEntity<?> listar(@PageableDefault(size=10) Pageable paginacao){
         var page = productRepository.findAll(paginacao);
         if (page.isEmpty()){
@@ -51,6 +54,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productAtualizado);
     }*/
     @PutMapping(value = "/{id}")
+    @Operation(summary = "Atualizar informações de product.")
     @Transactional
     public ResponseEntity<?> atualizar(@RequestBody @Valid ProductDTO dados, @PathVariable Long id){
         var product= productRepository.findById(id).orElse(null);
@@ -60,6 +64,7 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
     @DeleteMapping(value = "/{id}")
+    @Operation(summary = "Excluir product.")
     @Transactional
     public ResponseEntity<?> excluir(@PathVariable Long id){
         //Excluir definitivamente:
@@ -69,6 +74,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
+    @Operation(summary = "Detalhar informações de product.")
     public ResponseEntity detalhar(@PathVariable Long id){
         var product  = productRepository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesPdDTO(product));

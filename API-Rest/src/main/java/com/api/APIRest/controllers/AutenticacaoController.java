@@ -7,6 +7,10 @@ import com.api.APIRest.infra.security.TokenService;
 import com.api.APIRest.models.Usuario;
 import com.api.APIRest.repositorys.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
+//@Tag()
 public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
@@ -35,6 +40,7 @@ public class AutenticacaoController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping
+    @Operation(summary = "Efetuar Login.")
     public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticacaoDados dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
         var authentication = manager.authenticate(authenticationToken);
@@ -44,12 +50,14 @@ public class AutenticacaoController {
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
     @PostMapping(value = "/cadastrar")
+    @Operation(summary = "Cadastrar novo usuário.")
     public ResponseEntity cadastrarusuario(@RequestBody @Valid Usuario user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         usuarioRepository.save(user);
         return ResponseEntity.ok().body(user);
     }
     @GetMapping
+    @Operation(summary = "Listar usuários cadastrados.")
     public ResponseEntity<?> listar(@PageableDefault Pageable paginacao){
         var page = usuarioRepository.findAll(paginacao);
         if (page.isEmpty()){
@@ -67,6 +75,7 @@ public class AutenticacaoController {
         return ResponseEntity.ok().body(usuario);
     }*/
     @DeleteMapping(value = "/{id}")
+    @Operation(summary = "Excluir usuário por id.")
     @Transactional
     public ResponseEntity<?> excluir(@PathVariable Long id){
         //Excluir definitivamente:
@@ -76,6 +85,7 @@ public class AutenticacaoController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
+    @Operation(summary = "Detalhar informações de usuário.")
     public ResponseEntity detalhar(@PathVariable Long id){
         var usuario  = usuarioRepository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesUserDTO(usuario));
