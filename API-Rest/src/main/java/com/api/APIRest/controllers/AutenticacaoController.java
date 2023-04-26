@@ -40,7 +40,7 @@ public class AutenticacaoController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping
-    @Operation(summary = "Efetuar Login.")
+    @Operation(summary = "Efetuar Login de acesso ao usuário já cadastrado.")
     public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticacaoDados dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
         var authentication = manager.authenticate(authenticationToken);
@@ -57,7 +57,7 @@ public class AutenticacaoController {
         return ResponseEntity.ok().body(user);
     }
     @GetMapping
-    @Operation(summary = "Listar usuários cadastrados.")
+    @Operation(summary = "Fornece lista de usuários cadastrados.")
     public ResponseEntity<?> listar(@PageableDefault Pageable paginacao){
         var page = usuarioRepository.findAll(paginacao);
         if (page.isEmpty()){
@@ -75,7 +75,7 @@ public class AutenticacaoController {
         return ResponseEntity.ok().body(usuario);
     }*/
     @DeleteMapping(value = "/{id}")
-    @Operation(summary = "Excluir usuário por id.")
+    @Operation(summary = "Excluir usuário identificando seu id.")
     @Transactional
     public ResponseEntity<?> excluir(@PathVariable Long id){
         //Excluir definitivamente:
@@ -85,7 +85,7 @@ public class AutenticacaoController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    @Operation(summary = "Detalhar informações de usuário.")
+    @Operation(summary = "Detalhar informações sobre usuário passando seu id.")
     public ResponseEntity detalhar(@PathVariable Long id){
         var usuario  = usuarioRepository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesUserDTO(usuario));

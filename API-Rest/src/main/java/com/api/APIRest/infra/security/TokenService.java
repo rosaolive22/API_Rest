@@ -26,7 +26,7 @@ public class TokenService {
                     .withIssuer("API_Rest")
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
-                    //.withClaim("id", usuario.getId())pesquisar, aula-->https://cursos.alura.com.br/course/spring-boot-aplique-boas-praticas-proteja-api-rest/task/120940
+                    .withClaim("id", usuario.getId())//pesquisar, aula-->https://cursos.alura.com.br/course/spring-boot-aplique-boas-praticas-proteja-api-rest/task/120940
                     .sign(algoritmo);
         } catch (JWTCreationException exception){
             throw new RuntimeException("erro ao gerrar token jwt", exception);

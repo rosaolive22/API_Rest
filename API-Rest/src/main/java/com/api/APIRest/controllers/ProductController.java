@@ -28,7 +28,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
     @PostMapping
-    @Operation(summary = "Cadastrar new product.")
+    @Operation(summary = "Cadastrar novo produto.")
     @Transactional //12/04
     public ResponseEntity<?> cadastrar(@RequestBody @Valid ProductDTO dados, UriComponentsBuilder uriBuilder) {
            return productService.cadastrar(dados);
@@ -38,7 +38,7 @@ public class ProductController {
         return ResponseEntity.created(uri).body(product);*/
     }
     @GetMapping
-    @Operation(summary = "Listar products cadastrados.")
+    @Operation(summary = "Devolve uma listar de produtos cadastrados.")
     public ResponseEntity<?> listar(@PageableDefault(size=10) Pageable paginacao){
         var page = productRepository.findAll(paginacao);
         if (page.isEmpty()){
@@ -54,7 +54,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productAtualizado);
     }*/
     @PutMapping(value = "/{id}")
-    @Operation(summary = "Atualizar informações de product.")
+    @Operation(summary = "Atualizar informações de um determinado produto informando seu id.")
     @Transactional
     public ResponseEntity<?> atualizar(@RequestBody @Valid ProductDTO dados, @PathVariable Long id){
         var product= productRepository.findById(id).orElse(null);
@@ -64,7 +64,7 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
     @DeleteMapping(value = "/{id}")
-    @Operation(summary = "Excluir product.")
+    @Operation(summary = "Excluir produto informando seu id.")
     @Transactional
     public ResponseEntity<?> excluir(@PathVariable Long id){
         //Excluir definitivamente:
@@ -74,7 +74,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    @Operation(summary = "Detalhar informações de product.")
+    @Operation(summary = "Detalhar informações de um determinado produto, informando o id correspondente.")
     public ResponseEntity detalhar(@PathVariable Long id){
         var product  = productRepository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesPdDTO(product));
