@@ -40,7 +40,7 @@ public class AutenticacaoController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping
-    @Operation(summary = "Efetuar Login de acesso ao usuário já cadastrado.")
+    @Operation(summary = "Efetuar Login ao usuário já cadastrado.")
     public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticacaoDados dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
         var authentication = manager.authenticate(authenticationToken);
@@ -85,7 +85,7 @@ public class AutenticacaoController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    @Operation(summary = "Detalhar informações sobre usuário passando seu id.")
+    @Operation(summary = "Detalhar informações sobre usuário fornecendo seu id.")
     public ResponseEntity detalhar(@PathVariable Long id){
         var usuario  = usuarioRepository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesUserDTO(usuario));

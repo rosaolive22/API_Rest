@@ -26,7 +26,7 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @PostMapping
     @Operation(summary = "Cadastrar novo produto.")
     @Transactional //12/04
@@ -57,6 +57,9 @@ public class ProductController {
     @Operation(summary = "Atualizar informações de um determinado produto informando seu id.")
     @Transactional
     public ResponseEntity<?> atualizar(@RequestBody @Valid ProductDTO dados, @PathVariable Long id){
+       /* productService.atualizar(id, dados);
+        return ResponseEntity.ok().body(new ProductDTO(product));*/
+
         var product= productRepository.findById(id).orElse(null);
         assert product != null;
         product.atualizar(dados);
